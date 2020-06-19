@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+	<script src="https://unpkg.com/vuex@3.1.2/dist/vuex.js"></script>
+	<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script>
+	
+	<script src="https://www.unpkg.com/lodash@4.17.15/lodash.min.js"></script>
+
+	<link rel="stylesheet" href="/static/style.css">
+	
+
+	<script src="/static/index.js"></script>
+	<script src="/static/login.js"></script>
+
+</head>
+<body onload="main()"></body>
+<div id="root">
+	<div id="error-overlay" v-if="$store.state.errors.length">
+		<template v-for="(error, error_index) in $store.state.errors">
+			<div class="error-line" >
+				{{error.msg}} <button @click="$store.commit('clear_error', {index:error_index})">X</button>
+			</div>
+			<br>
+		</template>
+	</div>
+	<div id="nav-bar">
+		<router-link to="/thing">top link</router-link>
+		<router-link to="/admin" v-if="$store.getters.check_flag('admin')">Admin</router-link>
+		<template v-if="$store.getters.check_flag(null)">
+			<span style="float:right">
+				Welcome, {{$store.state.auth.username}}
+				<a href="" @click.prevent="$store.commit('expireAuthData')">Logout</a>
+			</span>
+		</template>
+		<template v-else>
+			<router-link to="/login" style="float:right">Login/Register</router-link>
+		</template>
+	</div>
+	<router-view></router-view>
+</div>
+</html>

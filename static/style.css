@@ -1,0 +1,22 @@
+
+
+
+#nav-bar{
+	margin-bottom: 25px;
+}
+
+
+#error-overlay{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+}
+
+.error-line{
+	display: inline-block;
+	margin:5px;
+	padding:5px;
+	background-color: #f5a2a2;
+	border-radius: 5px;
+}
+
